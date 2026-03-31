@@ -1,0 +1,66 @@
+@import './fonts.css';
+@import './tailwind.css';
+@import './theme.css';
+
+@layer base {
+  :root {
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --neon-cyan: #00f2ff;
+    --neon-purple: #bc13fe;
+    --neon-blue: #2d96ff;
+  }
+
+  .dark {
+    --glass-bg: rgba(0, 0, 0, 0.3);
+    --glass-border: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.glass-morphism {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.neon-border-cyan {
+  border: 1px solid var(--neon-cyan);
+  box-shadow: 0 0 10px var(--neon-cyan), inset 0 0 5px var(--neon-cyan);
+}
+
+.neon-border-purple {
+  border: 1px solid var(--neon-purple);
+  box-shadow: 0 0 10px var(--neon-purple), inset 0 0 5px var(--neon-purple);
+}
+
+.neon-text-cyan {
+  color: var(--neon-cyan);
+  text-shadow: 0 0 5px var(--neon-cyan);
+}
+
+.neon-text-purple {
+  color: var(--neon-purple);
+  text-shadow: 0 0 5px var(--neon-purple);
+}
+
+.bg-futuristic {
+  background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #0f0f1a 100%);
+  min-height: 100vh;
+  color: white;
+  overflow-x: hidden;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 5px #00f2ff, 0 0 10px #00f2ff;
+  }
+  to {
+    box-shadow: 0 0 15px #00f2ff, 0 0 25px #00f2ff;
+  }
+}
