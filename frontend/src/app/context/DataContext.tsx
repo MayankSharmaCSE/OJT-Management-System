@@ -10,6 +10,7 @@ export interface Task {
   status: 'pending' | 'submitted' | 'reviewed' | 'completed';
   created_by: number;
   priority: 'low' | 'medium' | 'high';
+  student_id?: number;
 }
 
 export interface Submission {

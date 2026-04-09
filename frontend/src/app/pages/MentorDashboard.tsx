@@ -47,6 +47,7 @@ const MentorDashboard: React.FC = () => {
     description: '',
     deadline: '',
     priority: 'medium' as 'low' | 'medium' | 'high',
+    student_id: 'all',
   });
 
   const [feedback, setFeedback] = useState({ grade: '', comment: '' });
@@ -99,6 +100,7 @@ const MentorDashboard: React.FC = () => {
     e.preventDefault();
     await addTask({
       ...newTask,
+      student_id: newTask.student_id === 'all' ? undefined : Number(newTask.student_id),
       status: 'pending',
     });
     setNewTask({
@@ -106,6 +108,7 @@ const MentorDashboard: React.FC = () => {
       description: '',
       deadline: '',
       priority: 'medium',
+      student_id: 'all',
     });
   };
 
@@ -342,6 +345,27 @@ const MentorDashboard: React.FC = () => {
                       </Select>
                     </div>
                   </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="task-assignee">Assign To</Label>
+                    <Select
+                      value={newTask.student_id.toString()}
+                      onValueChange={(value) =>
+                        setNewTask({ ...newTask, student_id: value })
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="All Students" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Students</SelectItem>
+                        {students.map((student) => (
+                          <SelectItem key={student.id} value={student.id.toString()}>
+                            {student.full_name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                   {/* Task assignment is handled implicitly by batch or individually in a real system. 
                       Simplifying for now. */}
                   <Button type="submit" className="w-full">Create Task</Button>
@@ -382,7 +406,11 @@ const MentorDashboard: React.FC = () => {
                         </Badge>
                       </TableCell>
                        <TableCell>
-                        <Badge variant="outline">All Students</Badge>
+                        <Badge variant="outline">
+                          {task.student_id 
+                            ? (students.find(s => s.id === task.student_id)?.full_name || 'Assigned Student')
+                            : 'All Students'}
+                        </Badge>
                       </TableCell>
                       <TableCell>
                         <Badge variant={task.status === 'completed' ? 'default' : 'secondary'}>
