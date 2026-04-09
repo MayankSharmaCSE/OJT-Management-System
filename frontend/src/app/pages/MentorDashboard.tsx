@@ -110,7 +110,12 @@ const MentorDashboard: React.FC = () => {
   };
 
   const handleSubmitFeedback = async (submissionId: number) => {
-    await gradeSubmission(submissionId, parseInt(feedback.grade), feedback.comment);
+    const gradeVal = parseInt(feedback.grade);
+    if (isNaN(gradeVal) || gradeVal < 0 || gradeVal > 100) {
+      alert('Please enter a valid grade between 0 and 100.');
+      return;
+    }
+    await gradeSubmission(submissionId, gradeVal, feedback.comment);
     setFeedback({ grade: '', comment: '' });
     setSelectedSubmissionId(null);
   };

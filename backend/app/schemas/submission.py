@@ -1,5 +1,5 @@
 from typing import Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from datetime import datetime
 
 class SubmissionBase(BaseModel):
@@ -10,7 +10,7 @@ class SubmissionCreate(SubmissionBase):
     pass
 
 class SubmissionGrade(BaseModel):
-    grade: int
+    grade: int = Field(ge=0, le=100)
     feedback: Optional[str] = None
 
 class SubmissionInDBBase(SubmissionBase):
