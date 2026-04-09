@@ -17,7 +17,9 @@ def read_student_tasks(
     """
     Retrieve tasks.
     """
-    return db.query(TaskModel).all()
+    return db.query(TaskModel).filter(
+        (TaskModel.student_id == current_user.id) | (TaskModel.student_id == None)
+    ).all()
 
 @router.post("/submissions", response_model=Submission)
 def create_submission(

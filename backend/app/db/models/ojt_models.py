@@ -49,8 +49,10 @@ class Task(Base):
     priority = Column(String, default="medium")
     status = Column(String, default=TaskStatus.PENDING)
     created_by = Column(Integer, ForeignKey("users.id"))
+    student_id = Column(Integer, ForeignKey("users.id"), nullable=True)
 
-    creator = relationship("User", back_populates="tasks_created")
+    creator = relationship("User", back_populates="tasks_created", foreign_keys=[created_by])
+    assigned_student = relationship("User", foreign_keys=[student_id])
     submissions = relationship("Submission", back_populates="task", cascade="all, delete-orphan")
 
 class SubmissionStatus(str, enum.Enum):

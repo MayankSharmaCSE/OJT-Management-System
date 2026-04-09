@@ -37,7 +37,8 @@ def create_task(
         deadline=task_in.deadline,
         priority=task_in.priority,
         status=task_in.status,
-        created_by=current_user.id
+        created_by=current_user.id,
+        student_id=task_in.student_id
     )
     db.add(db_task)
     db.commit()
