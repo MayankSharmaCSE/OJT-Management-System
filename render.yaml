@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: ojt-backend
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app.main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT
+    rootDir: backend
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: PROJECT_NAME
+        value: "OJT Management System"
+      - key: CORS_ORIGINS
+        value: "http://localhost:3000" # Update this after frontend deployment

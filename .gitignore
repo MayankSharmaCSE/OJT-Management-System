@@ -1,0 +1,22 @@
+# General
+.DS_Store
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Backend
+backend/venv/
+backend/__pycache__/
+backend/.pytest_cache/
+*.pyc
+*.pyo
+
+# Environment Variables
+.env
+backend/.env
+frontend/.env
+
+# IDE / Editor configurations
+.vscode/
+.idea/
