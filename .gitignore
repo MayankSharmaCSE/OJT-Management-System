@@ -20,3 +20,7 @@ frontend/.env
 # IDE / Editor configurations
 .vscode/
 .idea/
+
+# Local-only files
+CODEBASE_EXPLAINED.md
+run.sh
