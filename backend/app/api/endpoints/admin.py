@@ -5,6 +5,8 @@ from app.db.session import get_db
 from app.api import deps
 from app.crud import user as crud_user
 from app.schemas.user import User, UserCreate, UserUpdate
+from app.schemas.task import Task
+from app.db.models.ojt_models import Task as TaskModel
 
 router = APIRouter()
 
@@ -38,3 +40,13 @@ def create_user(
             detail="The user with this username already exists in the system.",
         )
     return crud_user.create_user(db, user=user_in)
+
+@router.get("/tasks", response_model=List[Task])
+def read_all_tasks(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(deps.get_current_active_admin),
+) -> Any:
+    """
+    Retrieve all tasks for admin.
+    """
+    return db.query(TaskModel).all()

@@ -45,6 +45,16 @@ def create_task(
     db.refresh(db_task)
     return db_task
 
+@router.get("/tasks", response_model=List[Task])
+def read_mentor_tasks(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(deps.get_current_active_mentor),
+) -> Any:
+    """
+    Retrieve tasks created by the mentor.
+    """
+    return db.query(TaskModel).filter(TaskModel.created_by == current_user.id).all()
+
 @router.get("/submissions", response_model=List[Submission])
 def read_submissions(
     db: Session = Depends(get_db),

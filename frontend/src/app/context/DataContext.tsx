@@ -86,14 +86,14 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
         const usersRes = await apiClient.get('/admin/users');
         setStudents(usersRes.data.filter((u: any) => u.role === 'student'));
         setMentors(usersRes.data.filter((u: any) => u.role === 'mentor'));
-        const tasksRes = await apiClient.get('/student/tasks'); // Admins see all for now
+        const tasksRes = await apiClient.get('/admin/tasks');
         setTasks(tasksRes.data);
       } else if (role === 'mentor') {
         const studentsRes = await apiClient.get('/mentor/students');
         setStudents(studentsRes.data);
         const submissionsRes = await apiClient.get('/mentor/submissions');
         setSubmissions(submissionsRes.data);
-        const tasksRes = await apiClient.get('/student/tasks'); 
+        const tasksRes = await apiClient.get('/mentor/tasks'); 
         setTasks(tasksRes.data);
       } else if (role === 'student') {
         const tasksRes = await apiClient.get('/student/tasks');
